@@ -1,0 +1,6 @@
+@thundersApp_HostAddress = http://localhost:5107
+
+GET {{thundersApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
