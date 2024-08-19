@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 
-namespace infrastructure.Mappers
+namespace Infrastructure.Mappers
 {
     internal class GrapeMap : IEntityTypeConfiguration<Grape>
     {

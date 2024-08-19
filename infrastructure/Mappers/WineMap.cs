@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace infrastructure.Mappers
+namespace Infrastructure.Mappers
 {
     internal class WineMap : IEntityTypeConfiguration<Wine>
     {

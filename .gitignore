@@ -4,6 +4,11 @@
 
 /bin/Debug/net8.0
 /.vs/thundersApp
+/Domain/bin/
 /Domain/obj/
-/infrastructure/obj/
+/Infrastructure/obj/
+/thundersApp/Infrastructure/obj/
+/Infrastructure/bin/
+/Tests/bin/
+/Tests/obj/
 /obj/

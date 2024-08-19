@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
-using infrastructure.Mappers;
+using Infrastructure.Mappers;
 using Microsoft.EntityFrameworkCore;
 
-namespace infrastructure.Databases
+namespace Infrastructure.Databases
 {
     public class AppDbContext : DbContext
     {

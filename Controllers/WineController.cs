@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Domain.Entities;
+using Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
 {
     public class WineController : Controller
     {
+        private readonly IWineService _wineService;
+        private readonly IMapper _mapper;
 
-
+        public WineController(IWineService service, IMapper mapper)
+        {
+            _wineService = service;
+            _mapper = mapper;
+        }
 
 
         [HttpGet("FindWineById")]
@@ -26,10 +36,13 @@ namespace thundersApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult CreateWine(IFormCollection collection)
+        public ActionResult CreateWine(WineDto item)
         {
             try
             {
+                var wineData = _mapper.Map<Wine>(item);
+                var (result, validations) = _wineService.AddWine(wineData);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

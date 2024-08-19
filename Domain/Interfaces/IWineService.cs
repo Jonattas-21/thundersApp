@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    internal interface IWineService
+    public interface IWineService
     {
         IEnumerable<Wine> GetAllWines();
         Wine GetWineById(int id);

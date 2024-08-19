@@ -12,7 +12,6 @@ namespace Domain.Entities
         public int Harvest { get; set; }
         public required string Region { get; set; }
         public required string Winery { get; set; }
-
         public required Grape Grape { get; set; }
     }
 }
