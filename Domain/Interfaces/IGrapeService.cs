@@ -2,13 +2,14 @@
 
 namespace Domain.Interfaces
 {
-    internal interface IGrapeService
+    public interface IGrapeService
     {
         IEnumerable<Grape> GetAllGrapes();
-        Grape GetGrapeById(int id);
-        (Grape?, bool) AddGrape(Grape grape);
-        bool DeleteGrape(int id);
+        Grape GetGrapeById(Guid id);
+        (Grape?, bool) CreateGrape(Grape grape);
+        bool DeleteGrape(Guid id);
+        Grape GetGrapeByName(string name);
+        Dictionary<string, string> CheckValidGrapeFields(Grape grape);
 
-        Dictionary<string, string> GrapeValidate(Grape grape);
     }
 }

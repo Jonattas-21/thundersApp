@@ -1,9 +1,19 @@
-﻿namespace Domain.Entities
+﻿using Domain.Attributes;
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities
 {
     public class Grape : BaseEntity
     {
-        public required string Name { get; set; }
-        public required string Origin { get; set; }
-        public required string Description { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+        public string Name { get; set; }
+        [Required]
+        [MaxLength(100)]
+        public string Origin { get; set; }
+        [Required]
+        [MaxLength(500)]
+        public string Description { get; set; }
     }
 }

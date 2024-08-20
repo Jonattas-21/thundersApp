@@ -6,9 +6,14 @@ public class WineProfile : Profile
 {
     public WineProfile()
     {
-        CreateMap<Wine, WineDto>().ForMember(dest => dest.Harvest, opt => opt.MapFrom(src => src.Harvest));
-        CreateMap<Wine, WineDto>().ForMember(dest => dest.WineName, opt => opt.MapFrom(src => src.Name));
-        CreateMap<Wine, WineDto>().ForMember(dest => dest.Winery, opt => opt.MapFrom(src => src.Winery));
-        CreateMap<Wine, WineDto>().ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Region));
+        CreateMap<WineRequestDto, Wine>().ForMember(dest => dest.Harvest, opt => opt.MapFrom(src => src.Harvest));
+        CreateMap<WineRequestDto, Wine>().ForMember(dest => dest.Winery, opt => opt.MapFrom(src => src.Winery));
+        CreateMap<WineRequestDto, Wine>().ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Region));
+        CreateMap<WineRequestDto, Wine>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.WineName));
+
+        CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Harvest, opt => opt.MapFrom(src => src.Harvest));
+        CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Winery, opt => opt.MapFrom(src => src.Winery));
+        CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Region));
+        CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
     }
 }

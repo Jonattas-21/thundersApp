@@ -6,7 +6,7 @@ namespace Domain.Entities
     public abstract class BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [DefaultDateNow]
         public DateTime CreatedAt { get; set; }
@@ -18,7 +18,7 @@ namespace Domain.Entities
 
         protected BaseEntity()
         {
-            this.CreatedAt = DateTime.Now;
+            this.CreatedAt = DateTime.Now.Kind == DateTimeKind.Utc ? DateTime.Now : DateTime.Now.ToUniversalTime();
         }
     }
 }

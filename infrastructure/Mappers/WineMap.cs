@@ -8,7 +8,7 @@ namespace Infrastructure.Mappers
     {
         public void Configure(EntityTypeBuilder<Wine> builder)
         {
-            builder.HasKey(w => w.Name);
+            builder.HasKey(w => w.Id);
 
             builder.Property(w => w.Name)
                 .IsRequired()

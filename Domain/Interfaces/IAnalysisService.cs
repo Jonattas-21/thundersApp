@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    internal interface IAnalysisService
+    public interface IAnalysisService
     {
-        Task<Analysis> GetAnalysisByWine(int wineId);
-        Task<Analysis> AddAnalysis(Analysis analysis);
-        Task<Analysis> UpdateAnalysis(Analysis analysis);
-        Task DeleteAnalysis(int id);
+        Analysis GetAnalysisByWine(Guid id);
+        (Analysis, Dictionary<string, string>) CreateAnalysis(Analysis analysis);
+        bool DeleteAnalysis(Guid id);
+        Dictionary<string, string> CheckValidAnalysisFields(Analysis analysis);
     }
 }

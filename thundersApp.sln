@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "thundersApp", "thundersApp.csproj", "{5687CF1E-A030-4BE2-B34E-F7A90F1449A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thundersApp", "thundersApp.csproj", "{5687CF1E-A030-4BE2-B34E-F7A90F1449A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94B16557-F86C-4338-8B5D-869952AB6388} = {94B16557-F86C-4338-8B5D-869952AB6388}
+		{BF27C57F-0C91-4D70-868A-96C6042505F1} = {BF27C57F-0C91-4D70-868A-96C6042505F1}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{94B16557-F86C-4338-8B5D-869952AB6388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{94B16557-F86C-4338-8B5D-869952AB6388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BF27C57F-0C91-4D70-868A-96C6042505F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BF27C57F-0C91-4D70-868A-96C6042505F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{818BCA2C-A11C-46F9-93D1-5817F76F3141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{818BCA2C-A11C-46F9-93D1-5817F76F3141}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,10 +5,10 @@ namespace Domain.Interfaces
     public interface IRepository<TEntity> where TEntity : class
     {
         IQueryable<TEntity> GetAll();
-        TEntity GetById(int id);
+        TEntity GetById(Guid id);
         IQueryable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> expression);
-        TEntity Add(TEntity entity);
-        TEntity Save(TEntity entity);
-        void DeleteById(int id);
+        TEntity Create(TEntity entity);
+        TEntity Update(TEntity entity);
+        bool DeleteById(Guid id);
     }
 }

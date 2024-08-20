@@ -1,6 +1,6 @@
 ﻿namespace thundersApp.Dtos
 {
-    public class WineDto
+    public class WineRequestDto
     {
         public required string WineName { get; set; }
         public int Harvest { get; set; }

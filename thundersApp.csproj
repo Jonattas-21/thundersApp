@@ -10,8 +10,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\**" />
+    <Compile Remove="Infrastructure\**" />
+    <Compile Remove="Tests\**" />
+    <Content Remove="Domain\**" />
+    <Content Remove="Infrastructure\**" />
+    <Content Remove="Tests\**" />
+    <EmbeddedResource Remove="Domain\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Domain\**" />
+    <None Remove="Infrastructure\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
@@ -20,7 +40,6 @@
   <ItemGroup>
     <ProjectReference Include="Domain\Domain.csproj" />
     <ProjectReference Include="Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="Tests\Tests.csproj" />
   </ItemGroup>
 
 </Project>

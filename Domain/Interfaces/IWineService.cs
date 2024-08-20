@@ -10,10 +10,13 @@ namespace Domain.Interfaces
     public interface IWineService
     {
         IEnumerable<Wine> GetAllWines();
-        Wine GetWineById(int id);
+        Wine GetWineById(Guid id);
         IEnumerable<Wine> GetWineByAnalysis(int tannin, int aciAcidity, int body);
-        (Wine, Dictionary<string, string>) AddWine(Wine wine);
-        (Wine, Dictionary<string, string>) UpdateWine(Wine wine);
-        bool DeleteWine(int id);
+        (Wine, Dictionary<string, string>) CreateWine(Wine wine);
+        (Wine, Dictionary<string, string>) UpdateWine(Guid id, Dictionary<string, string> fields);
+        bool DeleteWine(Guid id);
+        bool EnableDisableWine(Guid id);
+        Dictionary<string, string> CheckValidWineFields(Wine wine);
+        (Dictionary<string, string>, Wine) CheckUpdateWineFields(Dictionary<string, string> fields, Wine wine);
     }
 }

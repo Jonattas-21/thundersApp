@@ -4,22 +4,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Domain.Services
 {
-    internal class GrapeServices : IGrapeService
+    public class GrapeServices : IGrapeService
     {
-        private readonly IGrapeRepository _repository;
-        private readonly ILogger _logger;
+        private readonly IRepository<Grape> _repository;
+        private readonly ILogger<GrapeServices> _logger;
 
-        public GrapeServices(IGrapeRepository repository, ILogger log)
+        public GrapeServices(IRepository<Grape> repository, ILogger<GrapeServices> log)
         {
             _repository = repository;
             _logger = log;
         }
 
-        public (Grape?, bool) AddGrape(Grape grape)
+        public (Grape?, bool) CreateGrape(Grape grape)
         {
             try
             {
-                Grape? result = _repository.Add(grape);
+                grape.Id = Guid.NewGuid();
+                grape.Ativo = true;
+                Grape result = _repository.Create(grape);
                 _logger.LogInformation("Added wine grape {grape}", grape);
                 return (result, true);
             }
@@ -30,7 +32,7 @@ namespace Domain.Services
             }
         }
 
-        public bool DeleteGrape(int id)
+        public bool DeleteGrape(Guid id)
         {
             try
             {
@@ -50,12 +52,17 @@ namespace Domain.Services
             return _repository.GetAll();
         }
 
-        public Grape GetGrapeById(int id)
+        public Grape GetGrapeById(Guid id)
         {
             return _repository.GetById(id);
         }
 
-        public Dictionary<string, string> GrapeValidate(Grape grape)
+        public Grape GetGrapeByName(string name)
+        {
+            return _repository.GetByQuery(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+        }
+
+        public Dictionary<string, string> CheckValidGrapeFields(Grape grape)
         {
             var validations = new Dictionary<string, string>();
 
@@ -63,17 +70,17 @@ namespace Domain.Services
             {
                 if (string.IsNullOrEmpty(grape.Name))
                 {
-                    validations.Add("Name", "Name is required");
+                    validations.Add("Grape Name", "Name is required");
                 }
 
                 if (string.IsNullOrEmpty(grape.Description))
                 {
-                    validations.Add("Color", "Description is required");
+                    validations.Add("Grape Description", "Description is required");
                 }
 
                 if (string.IsNullOrEmpty(grape.Origin))
                 {
-                    validations.Add("Color", "Origin is required");
+                    validations.Add("Grape Origin", "Origin is required");
                 }
 
             }
