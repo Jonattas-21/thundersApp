@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
@@ -19,7 +20,7 @@ namespace thundersApp.Controllers
             _logger = logger;
         }
 
-
+        [OutputCache(Duration = 90, VaryByQueryKeys = new[] { "id" })]
         [HttpGet("FindWineById")]
         public ActionResult FindWineById(Guid id)
         {

@@ -1,12 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Web.Http;
+
 
 namespace Domain.Services
 {

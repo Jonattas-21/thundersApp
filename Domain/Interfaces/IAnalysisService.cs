@@ -13,5 +13,6 @@ namespace Domain.Interfaces
         (Analysis, Dictionary<string, string>) CreateAnalysis(Analysis analysis);
         bool DeleteAnalysis(Guid id);
         Dictionary<string, string> CheckValidAnalysisFields(Analysis analysis);
+        IEnumerable<Analysis> GetAnalysesByCategories(int? Sweet, int? Tannin, int? Acidity, int? Alcohol, int? Body);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
-using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
@@ -20,6 +20,7 @@ namespace thundersApp.Controllers
             _logger = logger;
         }
 
+        [OutputCache(Duration = 90, VaryByQueryKeys = new[] { "id" })]
         [HttpGet("FindAnalysisByWineId")]
         public ActionResult FindAnalysisByWineId(Guid id)
         {
@@ -32,7 +33,7 @@ namespace thundersApp.Controllers
                 return NotFound(response);
             }
 
-            var analysisResponseDto = _mapper.Map<WineResponseDto>(analysis);
+            var analysisResponseDto = _mapper.Map<AnalysisResponseDto>(analysis);
             var wineResponseDto = _mapper.Map<WineResponseDto>(analysis.Wine);
 
             response.Message = "analysis found successfully";
@@ -88,6 +89,37 @@ namespace thundersApp.Controllers
 
             response.Message = "Analysis deleted successfully";
             return Ok(response);
+        }
+
+        [OutputCache(Duration = 90, VaryByQueryKeys = new[] { "Sweet", "Tannin", "Acidity", "Alcohol", "Body" })]
+        [HttpGet("FindAnalysisByCategory")]
+        public ActionResult FindAnalysisByCategory(int? Sweet, int? Tannin, int? Acidity, int? Alcohol, int? Body)
+        {
+            DefaultResponse response = new DefaultResponse();
+
+            var analyses = _analysisService.GetAnalysesByCategories(Sweet, Tannin, Acidity, Alcohol, Body).ToList();
+            if (analyses == null || analyses.Count() == 0)
+            {
+                response.Message = "analysis not found for given especifications";
+                return NotFound(response);
+            }
+
+            var listResponseDto = new List<AnalysisResponseDto>();
+            AnalysisResponseDto analysisResponseDto;
+            WineResponseDto wineResponseDto;
+            foreach (var item in analyses)
+            {
+                analysisResponseDto = _mapper.Map<AnalysisResponseDto>(item);
+                wineResponseDto = _mapper.Map<WineResponseDto>(item.Wine);
+                analysisResponseDto.Wine = wineResponseDto;
+
+                listResponseDto.Add(analysisResponseDto);
+            }
+
+
+            response.Message = "analyses were found successfully";
+            response.Data = listResponseDto;
+            return Ok(response); ;
         }
     }
 }

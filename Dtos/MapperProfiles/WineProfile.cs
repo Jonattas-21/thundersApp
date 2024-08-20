@@ -15,5 +15,6 @@ public class WineProfile : Profile
         CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Winery, opt => opt.MapFrom(src => src.Winery));
         CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.Region));
         CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+        CreateMap<Wine, WineResponseDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }

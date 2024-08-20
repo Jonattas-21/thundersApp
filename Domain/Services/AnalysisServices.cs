@@ -1,10 +1,13 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
+using Domain.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Services
 {
-    internal class AnalysisServices : IAnalysisService
+    public class AnalysisServices : IAnalysisService
     {
         private readonly IRepository<Analysis> _repository;
         private readonly ILogger<AnalysisServices> _logger;
@@ -74,6 +77,12 @@ namespace Domain.Services
                 return (savedAnalysis, validations);
 
             }
+            catch (DbUpdateException ms)
+            {
+                _logger.LogError(ms, "Error adding duplicate analysis {analysis}", analysis);
+                validations.Add("Error", "Error adding analysis, already exist analysis for this wine");
+                return (analysis, validations);
+            }
             catch (Exception e)
             {
                 _logger.LogError(e, "Error adding analysis {analysis}", analysis);
@@ -97,18 +106,47 @@ namespace Domain.Services
             return true;
         }
 
+        public IEnumerable<Analysis> GetAnalysesByCategories(int? Sweet, int? Tannin, int? Acidity, int? Alcohol, int? Body)
+        {
+            try
+            {
+                Expression<Func<Analysis, bool>> filter = x => true;
+
+                if (Sweet.HasValue)
+                {
+                    filter = filter.AndAlso(x => x.Sweet == Sweet);
+                }
+                if (Tannin.HasValue)
+                {
+                    filter = filter.AndAlso(x => x.Tannin == Tannin);
+                }
+                if (Acidity.HasValue)
+                {
+                    filter = filter.AndAlso(x => x.Acidity == Acidity);
+                }
+                if (Alcohol.HasValue)
+                {
+                    filter = filter.AndAlso(x => x.Alcohol == Alcohol);
+                }
+                if (Body.HasValue)
+                {
+                    filter = filter.AndAlso(x => x.Body == Body);
+                }
+
+                return _repository.GetByQuery(filter);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error getting analysis by category");
+                return null;
+            }
+        }
+
         public Analysis GetAnalysisByWine(Guid id)
         {
             return _repository.GetByQuery(x => x.Wine.Id == id).FirstOrDefault();
         }
 
 
-    }
-    internal static class IntExtensions
-    {
-        public static bool IsBetweenAnalysis(this int value)
-        {
-            return value >= 1 && value <= 5;
-        }
     }
 }

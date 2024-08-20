@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOutputCache();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -30,6 +31,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IWineService, WineServices>();
 builder.Services.AddScoped<IGrapeService, GrapeServices>();
+builder.Services.AddScoped<IAnalysisService, AnalysisServices>();
 builder.Services.AddScoped<IRepository<Wine>, Repository<Wine>>();
 builder.Services.AddScoped<IRepository<Grape>, Repository<Grape>>();
 builder.Services.AddScoped<IRepository<Analysis>, Repository<Analysis>>();
@@ -50,6 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseOutputCache();
+
+//app.UseRouting();
 
 app.UseHttpsRedirection();
 
