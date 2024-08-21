@@ -26,6 +26,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 builder.Services.AddScoped<IOriginService, OriginService>();
 builder.Services.AddScoped<ITaskForceService, TaskForceService>();
 builder.Services.AddScoped<IRepository<TaskForce>, Repository<TaskForce>>();
@@ -48,8 +49,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseOutputCache();
-
-//app.UseRouting();
 
 app.UseHttpsRedirection();
 

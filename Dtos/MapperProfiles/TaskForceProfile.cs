@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using Domain.Entities;
 
 namespace thundersApp.Dtos.MapperProfiles
@@ -17,6 +17,7 @@ namespace thundersApp.Dtos.MapperProfiles
             CreateMap<TaskForce, TaskForceResponseDto>().ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin.Name));
             CreateMap<TaskForce, TaskForceResponseDto>().ForMember(dest => dest.Priority, opt => opt.MapFrom(src => src.Priority));
             CreateMap<TaskForce, TaskForceResponseDto>().ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
+            CreateMap<TaskForce, TaskForceResponseDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

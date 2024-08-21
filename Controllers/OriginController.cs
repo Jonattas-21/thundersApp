@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Extensions.Caching.Memory;
 using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
@@ -20,9 +21,9 @@ namespace thundersApp.Controllers
             _logger = logger;
         }
 
-        [OutputCache(Duration = 90, VaryByQueryKeys = new[] { "id" })]
-        [HttpGet("FindById")]
-        public ActionResult FindById(Guid id)
+        [OutputCache(Duration = 15, VaryByQueryKeys = new[] { "id" })]
+        [HttpGet("FindOriginById")]
+        public ActionResult FindOriginById(Guid id)
         {
             DefaultResponse response = new DefaultResponse();
 
@@ -93,15 +94,25 @@ namespace thundersApp.Controllers
         {
             DefaultResponse response = new DefaultResponse();
 
-            var result = _service.Delete(id);
-            if (!result)
+            try
             {
-                response.Message = "Error deleting Origin";
-                return BadRequest(response);
-            }
+                var result = _service.Delete(id);
+                if (!result)
+                {
+                    response.Message = "Id Origin not found";
+                    return BadRequest(response);
+                }
 
-            response.Message = "Origin deleted successfully";
-            return Ok(response);
+                response.Message = "Origin deleted successfully";
+                return Ok(response);
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error deleting Origin");
+                response.Message = "Internal error happened while deleting Origin";
+                return StatusCode(500, response);
+            }
         }
     }
 }

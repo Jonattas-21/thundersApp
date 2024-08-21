@@ -17,8 +17,7 @@ namespace Infrastructure.Mappers
             builder.Property(g => g.CreatedAt)
                 .IsRequired();
 
-            builder.Property(g => g.UpdatedAt)
-                .IsRequired();
+            builder.Property(g => g.UpdatedAt);
 
             builder.Property(g => g.Ativo)
                 .IsRequired();

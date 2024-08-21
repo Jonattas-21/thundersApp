@@ -72,6 +72,7 @@ namespace Domain.Services
             catch (Exception e)
             {
                 _logger.LogError(e, "Error adding origin {origin}", origin);
+                validations.Add("Error", "Internal error while adding origin");
                 return (null, validations);
             }
         }
@@ -80,12 +81,19 @@ namespace Domain.Services
         {
             try
             {
+                var origin = _repository.GetById(id);
+
+                if (origin == null)
+                {
+                    return false;
+                }
+
                 _repository.DeleteById(id);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Error deleting wine origin id {id}", id);
-                return false;
+                throw;
             }
 
             return true;

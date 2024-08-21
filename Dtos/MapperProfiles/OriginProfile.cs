@@ -9,6 +9,7 @@ namespace thundersApp.Dtos.MapperProfiles
         {
             CreateMap<Origin, OriginResponseDto>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
             CreateMap<Origin, OriginResponseDto>().ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt));
+            CreateMap<Origin, OriginResponseDto>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

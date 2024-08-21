@@ -22,7 +22,7 @@ namespace thundersApp.Controllers
             _logger = logger;
         }
 
-        [OutputCache(Duration = 90, VaryByQueryKeys = new[] { "id" })]
+        [OutputCache(Duration = 15, VaryByQueryKeys = new[] { "id" })]
         [HttpGet("FindById")]
         public ActionResult FindById(Guid id)
         {

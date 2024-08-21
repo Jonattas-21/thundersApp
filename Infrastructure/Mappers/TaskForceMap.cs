@@ -24,18 +24,10 @@ namespace Infrastructure.Mappers
             builder.Property(w => w.CreatedAt)
                 .IsRequired();
 
-            builder.Property(w => w.UpdatedAt)
-                .IsRequired();
-
             builder.Property(w => w.Name)
                 .IsRequired()
                 .HasMaxLength(100);
 
-
-            builder.HasOne(w => w.Origin)
-                .WithMany()
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
