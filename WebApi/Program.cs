@@ -9,7 +9,10 @@ using Domain.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOutputCache();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -24,6 +27,17 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri("https://www.linkedin.com/in/jonattas-pedroso-a251a82b/")
         }
     });
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
 });
 
 
@@ -47,6 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseOutputCache();
 

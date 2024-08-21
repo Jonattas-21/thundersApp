@@ -73,9 +73,9 @@ namespace Domain.Services
                     taskForce.Id = Guid.NewGuid();
                     taskForce.Ativo = true;
                     taskForce.Status = (int)StatusEnum.Todo;
+                    taskForce.Origin = originData;
 
                     var savedTask = _repository.Create(taskForce);
-                    taskForce.Origin = originData;
 
                     return (savedTask, validations);
                 }
@@ -98,12 +98,19 @@ namespace Domain.Services
         {
             try
             {
+                var item = _repository.GetById(id);
+
+                if (item == null)
+                {
+                    return false;
+                }
+
                 _repository.DeleteById(id);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error deleting taskforce taskForce id {id}", id);
-                return false;
+                _logger.LogError(e, "Error deleting wine taskforce id {id}", id);
+                throw;
             }
 
             return true;
@@ -149,6 +156,11 @@ namespace Domain.Services
                 _logger.LogError(e, "Error updating taskforce taskForce id {id}", id);
                 throw;
             }
+        }
+
+        public IEnumerable<TaskForce> GetAll()
+        {
+            return _repository.GetAll();
         }
     }
 }

@@ -8,6 +8,7 @@ using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
 {
+    [Route("origin")]
     public class OriginController : Controller
     {
         private readonly IOriginService _service;
@@ -21,9 +22,10 @@ namespace thundersApp.Controllers
             _logger = logger;
         }
 
-        [OutputCache(Duration = 15, VaryByQueryKeys = new[] { "id" })]
-        [HttpGet("FindOriginById")]
-        public ActionResult FindOriginById(Guid id)
+        //Retirei o cache pois perdia o dinamismo do front, alternativa a isso é implementar InMemoryCache customizado.
+        //[OutputCache(Duration = 15, VaryByQueryKeys = new[] { "id" })]
+        [HttpGet("FindById")]
+        public ActionResult FindById(Guid id)
         {
             DefaultResponse response = new DefaultResponse();
 

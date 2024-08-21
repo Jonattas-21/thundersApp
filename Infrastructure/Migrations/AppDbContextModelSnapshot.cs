@@ -77,7 +77,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid?>("OriginId")
+                    b.Property<Guid>("OriginId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Priority")
@@ -99,15 +99,12 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.TaskForce", b =>
                 {
                     b.HasOne("Domain.Entities.Origin", "Origin")
-                        .WithMany("Tasks")
-                        .HasForeignKey("OriginId");
+                        .WithMany()
+                        .HasForeignKey("OriginId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Origin");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Origin", b =>
-                {
-                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

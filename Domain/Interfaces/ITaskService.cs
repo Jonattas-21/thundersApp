@@ -11,5 +11,6 @@ namespace Domain.Interfaces
         Dictionary<string, string> CheckValidTaskForceFields(TaskForce taskForce);
         IEnumerable<TaskForce> GetByPriority(int? Priority);
         bool UpdateStatus(Guid id, StatusEnum statusEnum);
+        IEnumerable<TaskForce> GetAll();
     }
 }

@@ -9,6 +9,7 @@ using thundersApp.Dtos;
 
 namespace thundersApp.Controllers
 {
+    [Route("TaskForce")]
     public class TaskForceController : Controller
     {
         private readonly ITaskForceService _service;
@@ -28,22 +29,41 @@ namespace thundersApp.Controllers
         {
             DefaultResponse response = new DefaultResponse();
 
-            var taskForce = _service.GetTaskById(id);
-            if (taskForce == null)
+            if (id == Guid.Empty)
             {
-                response.Message = "TaskForce not found for ID: " + id.ToString();
-                return NotFound(response);
+                var tasks = _service.GetAll().ToList();
+                var responseList = new List<TaskForceResponseDto>();
+
+                foreach (var item in tasks)
+                {
+                    var mapped = _mapper.Map<TaskForceResponseDto>(item);
+                    mapped.Origin = item.Origin.Name;
+                    responseList.Add(mapped);
+                }
+
+                response.Data = responseList;
+            }
+            else
+            {
+                var taskForce = _service.GetTaskById(id);
+                if (taskForce == null)
+                {
+                    response.Message = "TaskForce not found for ID: " + id.ToString();
+                    return NotFound(response);
+                }
+
+                var taskForceResponseDto = _mapper.Map<TaskForceResponseDto>(taskForce);
+                response.Data = taskForceResponseDto;
+                
             }
 
-            var taskForceResponseDto = _mapper.Map<TaskForceResponseDto>(taskForce);
             response.Message = "taskForce found successfully";
-            response.Data = taskForceResponseDto;
-            return Ok(response); ;
+            return Ok(response);
         }
 
         [HttpPost("CreateTaskForce")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult CreateTaskForce(TaskForceRequestDto item)
+        public ActionResult CreateTaskForce([FromBody] TaskForceRequestDto item)
         {
             try
             {
@@ -72,8 +92,8 @@ namespace thundersApp.Controllers
             }
         }
 
-        [HttpPatch("UpdateTaskForceStatus")]
-        public ActionResult UpdateTaskForceStatus(Guid id, int status)
+        [HttpPatch("UpdateTaskForceStatus/{id}")]
+        public ActionResult UpdateTaskForceStatus(Guid id, [FromQuery] int status)
         {
             try
             {
@@ -108,15 +128,21 @@ namespace thundersApp.Controllers
             }
         }
 
-        [HttpDelete("DeleteTaskForce")]
+        [HttpDelete("DeleteTaskForce/{id}")]
         public ActionResult DeleteTaskForce(Guid id)
         {
+            DefaultResponse response = new DefaultResponse();
+
             try
             {
-                DefaultResponse response = new DefaultResponse();
-                response.Message = _service.Delete(id) ? "TaskForce deleted successfully" : "TaskForce was not found for ID: " + id.ToString();
-                response.Data = id;
+                var result = _service.Delete(id);
+                if (!result)
+                {
+                    response.Message = "Id taskforce not found";
+                    return BadRequest(response);
+                }
 
+                response.Message = "taskforce deleted successfully";
                 return Ok(response);
             }
             catch (Exception e)

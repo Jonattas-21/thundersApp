@@ -15,7 +15,7 @@ namespace Infrastructure.Mappers
 
             builder.Property(w => w.Assignee)
                 .IsRequired()
-                .HasMaxLength(100); ;
+                .HasMaxLength(100);
 
             builder.Property(w => w.Description)
                 .IsRequired()
@@ -27,6 +27,11 @@ namespace Infrastructure.Mappers
             builder.Property(w => w.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.HasOne(w => w.Origin)
+                .WithMany()
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict); 
 
         }
     }

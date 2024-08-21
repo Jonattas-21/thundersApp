@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240821170730_nullUpdatedAt")]
-    partial class nullUpdatedAt
+    [Migration("20240821213225_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,7 +80,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid?>("OriginId")
+                    b.Property<Guid>("OriginId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Priority")
@@ -102,15 +102,12 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.TaskForce", b =>
                 {
                     b.HasOne("Domain.Entities.Origin", "Origin")
-                        .WithMany("Tasks")
-                        .HasForeignKey("OriginId");
+                        .WithMany()
+                        .HasForeignKey("OriginId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Origin");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Origin", b =>
-                {
-                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }
