@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
 
         IQueryable<TEntity> IRepository<TEntity>.GetAll()
         {
-            return GetSet().AsQueryable<TEntity>(); ;
+            return GetSet().AsQueryable<TEntity>();
         }
 
         public IQueryable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> expression)

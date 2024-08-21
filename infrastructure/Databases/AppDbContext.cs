@@ -11,14 +11,13 @@ namespace Infrastructure.Databases
 
         }
 
-        public DbSet<Wine> Wines { get; set; }
-        public DbSet<Grape> Grapes { get; set; }
-        public DbSet<Analysis> Analyses { get; set; }
+        public DbSet<TaskForce> TaskForces { get; set; }
+        public DbSet<Origin> Origins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new WineMap());
-            modelBuilder.ApplyConfiguration(new GrapeMap());
+            modelBuilder.ApplyConfiguration(new TaskForceMap());
+            modelBuilder.ApplyConfiguration(new OriginMap());
 
             base.OnModelCreating(modelBuilder);
         }

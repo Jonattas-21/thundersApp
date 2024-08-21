@@ -5,8 +5,6 @@ using Domain.Interfaces;
 using Domain.Services;
 using Infrastructure.Repositories;
 using Domain.Entities;
-using Microsoft.AspNetCore.Hosting;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +15,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "AwesomeDevEvents.API",
+        Title = "Thunders api",
         Version = "v1",
         Contact = new OpenApiContact
         {
@@ -28,14 +26,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-builder.Services.AddScoped<IWineService, WineServices>();
-builder.Services.AddScoped<IGrapeService, GrapeServices>();
-builder.Services.AddScoped<IAnalysisService, AnalysisServices>();
-builder.Services.AddScoped<IRepository<Wine>, Repository<Wine>>();
-builder.Services.AddScoped<IRepository<Grape>, Repository<Grape>>();
-builder.Services.AddScoped<IRepository<Analysis>, Repository<Analysis>>();
-
+builder.Services.AddScoped<IOriginService, OriginService>();
+builder.Services.AddScoped<ITaskForceService, TaskForceService>();
+builder.Services.AddScoped<IRepository<TaskForce>, Repository<TaskForce>>();
+builder.Services.AddScoped<IRepository<Origin>, Repository<Origin>>();
 
 builder.Logging.ClearProviders().AddConsole();
 
