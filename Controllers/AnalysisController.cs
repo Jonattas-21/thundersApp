@@ -116,7 +116,6 @@ namespace thundersApp.Controllers
                 listResponseDto.Add(analysisResponseDto);
             }
 
-
             response.Message = "analyses were found successfully";
             response.Data = listResponseDto;
             return Ok(response); ;

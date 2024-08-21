@@ -47,11 +47,6 @@ namespace Domain.Services
             return true;
         }
 
-        public IEnumerable<Grape> GetAllGrapes()
-        {
-            return _repository.GetAll();
-        }
-
         public Grape GetGrapeById(Guid id)
         {
             return _repository.GetById(id);

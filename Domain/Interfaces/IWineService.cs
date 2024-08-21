@@ -9,9 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IWineService
     {
-        IEnumerable<Wine> GetAllWines();
         Wine GetWineById(Guid id);
-        IEnumerable<Wine> GetWineByAnalysis(int tannin, int aciAcidity, int body);
         (Wine, Dictionary<string, string>) CreateWine(Wine wine);
         (Wine, Dictionary<string, string>) UpdateWine(Guid id, Dictionary<string, string> fields);
         bool DeleteWine(Guid id);

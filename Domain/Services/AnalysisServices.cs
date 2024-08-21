@@ -146,7 +146,5 @@ namespace Domain.Services
         {
             return _repository.GetByQuery(x => x.Wine.Id == id).FirstOrDefault();
         }
-
-
     }
 }

@@ -19,8 +19,6 @@ namespace Domain.Services
             _grapeService = grapeService;
         }
 
-        #region public methods
-
         public (Wine, Dictionary<string, string>) CreateWine(Wine wine)
         {
             var validations = new Dictionary<string, string>();
@@ -57,7 +55,7 @@ namespace Domain.Services
             {
                 _logger.LogError(e, "Error adding wine {wine}", wine);
                 validations.Add("Error", "Internal error while adding wine");
-                return (wine, validations);
+                return (null, validations);
             }
         }
 
@@ -74,16 +72,6 @@ namespace Domain.Services
             }
 
             return true;
-        }
-
-        public IEnumerable<Wine> GetAllWines()
-        {
-            return _repository.GetAll();
-        }
-
-        public IEnumerable<Wine> GetWineByAnalysis(int tannin, int aciAcidity, int body)
-        {
-            throw new NotImplementedException();
         }
 
         public Wine GetWineById(Guid id)
@@ -119,11 +107,7 @@ namespace Domain.Services
                 erros.Add("Error", "Internal error while updating wine");
                 return (null, erros);
             }
-
-
         }
-
-        #endregion
 
         public Dictionary<string, string> CheckValidWineFields(Wine wine)
         {
@@ -216,12 +200,12 @@ namespace Domain.Services
                         }
                         else
                         {
-                            validations.Add(item.Key, "Campo não existe");
+                            validations.Add(item.Key, "Field does not exist");
                         }
                     }
                     catch (Exception)
                     {
-                        validations.Add(item.Key, "Erro ao atribuir o valor " + item.Value);
+                        validations.Add(item.Key, "Error setting value " + item.Value);
                     }
                 }
             }
