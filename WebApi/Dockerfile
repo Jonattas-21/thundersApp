@@ -8,14 +8,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["./thundersApp.csproj", "WebApi/"]
-RUN dotnet restore "./WebApi/thundersApp.csproj"
+COPY ["thundersApp.csproj", "."]
+RUN dotnet restore "./thundersApp.csproj"
 COPY . .
-WORKDIR "/src/WebApi"
+WORKDIR "/src/."
 RUN dotnet build "./thundersApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Install dotnet-ef tool locally
-RUN dotnet tool install dotnet-ef --version 8.0.0 --tool-path /app/.tools
+## Install dotnet-ef tool locally
+#RUN dotnet tool install dotnet-ef --version 8.0.0 --tool-path /app/.tools
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
@@ -26,7 +26,7 @@ RUN dotnet publish "./thundersApp.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /app/.tools /root/.dotnet/tools
-
+#COPY --from=build /app/.tools /root/.dotnet/tools
+#
 # Apply migrations and start the application
 ENTRYPOINT ["dotnet", "thundersApp.dll"]
