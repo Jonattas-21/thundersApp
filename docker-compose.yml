@@ -11,17 +11,28 @@ services:
     ports:
       - "5432:5432"
 
-  thundersapp:
-    image: ${DOCKER_REGISTRY-}thundersapp
+  webapi:
     build:
-      context: .
-      dockerfile: WebApi/Dockerfile
+      context: ./webapi
+      dockerfile: Dockerfile
+    container_name: webapi
+    command: tail -f /dev/null
+    restart: always
+    depends_on:
+      - postgres_task
+    ports:
+      - "8088:8088"
+      - "8081:8081"
 
   frontend:
-    image: ${DOCKER_REGISTRY-}frontend
     build:
-      context: Frontend
+      context: ./frontend
       dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - webapi
 
 volumes:
   postgres_data:

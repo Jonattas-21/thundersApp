@@ -1,14 +1,14 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 8088
 EXPOSE 8081
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WebApi/thundersApp.csproj", "WebApi/"]
+COPY ["./thundersApp.csproj", "WebApi/"]
 RUN dotnet restore "./WebApi/thundersApp.csproj"
 COPY . .
 WORKDIR "/src/WebApi"
