@@ -45,3 +45,11 @@ Start-Process -FilePath ".\dotnet-sdk-installer.exe" -ArgumentList "/quiet" -NoN
 5. Execute **Frontend** project the is the software frontend
 
 It is also posible to run both DockerFile or adjuste and run the `docker-compose` in root project.
+
+
+## [TODO] Next Steps for this project
+
+* Implement a CI/CD pipeline
+* Implement Logs in ELK approach
+* Configure keycloack for security
+* Attach Postman collection for tests
