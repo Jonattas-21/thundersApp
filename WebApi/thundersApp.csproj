@@ -6,21 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>8a10695a-559b-4fd3-9206-da2572af8fde</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Domain\**" />
-    <Compile Remove="Infrastructure\**" />
     <Compile Remove="Tests\**" />
-    <Content Remove="Domain\**" />
-    <Content Remove="Infrastructure\**" />
     <Content Remove="Tests\**" />
-    <EmbeddedResource Remove="Domain\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Tests\**" />
-    <None Remove="Domain\**" />
-    <None Remove="Infrastructure\**" />
     <None Remove="Tests\**" />
   </ItemGroup>
 
@@ -36,11 +28,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

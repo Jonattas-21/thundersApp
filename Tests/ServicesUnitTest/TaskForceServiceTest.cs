@@ -112,6 +112,9 @@ namespace Tests.ServicesUnitTest
         {
             // Arrange
             var id = Guid.NewGuid();
+            var item = new TaskForce { Id = id, Name = "Test" };
+            _repositoryMock.Setup(repo => repo.GetById(id)).Returns(item);
+
             _repositoryMock.Setup(repo => repo.DeleteById(id)).Verifiable();
 
             // Act
@@ -134,7 +137,7 @@ namespace Tests.ServicesUnitTest
 
             // Assert
             Assert.False(result);
-            _repositoryMock.Verify(repo => repo.DeleteById(id), Times.Once);
+            _repositoryMock.Verify(repo => repo.DeleteById(id), Times.Never);
         }
 
         #endregion

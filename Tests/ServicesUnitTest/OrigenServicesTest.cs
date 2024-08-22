@@ -100,7 +100,7 @@ namespace Tests.ServicesUnitTest
             var (result, validations) = _originService.CreateOrigin(origin);
 
             Assert.Null(result);
-            Assert.Empty(validations);
+            Assert.NotEmpty(validations);
             _repositoryMock.Verify(repo => repo.Create(It.IsAny<Origin>()), Times.Once);
         }
 
@@ -112,7 +112,9 @@ namespace Tests.ServicesUnitTest
         public void Delete_ExistingId_ShouldReturnTrue()
         {
             var originId = Guid.NewGuid();
+            var origin = new Origin { Id = originId, Name = "Test Origin" };
             _repositoryMock.Setup(r => r.DeleteById(originId)).Verifiable();
+            _repositoryMock.Setup(repo => repo.GetById(originId)).Returns(origin);
 
             var result = _originService.Delete(originId);
 

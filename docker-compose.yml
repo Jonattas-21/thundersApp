@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
-  postgres:
+  postgres_task:
     image: postgres:15
-    container_name: postgres
+    container_name: postgres_task
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
@@ -13,24 +11,17 @@ services:
     ports:
       - "5432:5432"
 
-  webapi:
+  thundersapp:
+    image: ${DOCKER_REGISTRY-}thundersapp
     build:
-      context: ./WebApi
-    container_name: webapi
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Host=postgres;Database=taskapp;Username=admin;Password=admin"
-    depends_on:
-      - postgres
-    ports:
-      - "5000:80"
+      context: .
+      dockerfile: WebApi/Dockerfile
 
   frontend:
+    image: ${DOCKER_REGISTRY-}frontend
     build:
-      context: ./frontend
-    container_name: frontend
-    ports:
-      - "80:80"
+      context: Frontend
+      dockerfile: Dockerfile
 
 volumes:
   postgres_data:
